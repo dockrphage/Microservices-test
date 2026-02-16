@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Deploy To Kubernetes') {
             steps {
-                withKubeConfig(credentialsId: 'kubeconfig-ec2') {
+                withKubeConfig(credentialsId: 'kubernetes') {
                     sh "kubectl apply -f deployment-service.yml"
                 }
             }
@@ -12,7 +12,7 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                withKubeConfig(credentialsId: 'kubeconfig-ec2') {
+                withKubeConfig(credentialsId: 'kubernetes') {
                     sh "kubectl get svc -n webapps"
                 }
             }
